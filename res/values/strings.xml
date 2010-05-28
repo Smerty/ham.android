@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Ham</string>
+    <string name="stdstr"><u>Solar Terrestrial Data</u></string>
+    <string name="cscstr"><u>Calculated Solar Conditions</u></string>
+    <string name="vhfcondstr"><u>VHF Conditions</u></string>
+	<string name="otherstr"><u>Other</u></string>
+    <string name="solarsource"><i>N0NBH: http://www.hamqsl.com/solar.html</i></string>
+</resources>
