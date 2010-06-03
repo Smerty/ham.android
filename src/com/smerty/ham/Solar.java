@@ -22,6 +22,9 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -494,7 +497,20 @@ public class Solar extends Activity {
 			HttpProtocolParams.setContentCharset(params, "UTF-8");
 			HttpProtocolParams.setUseExpectContinue(params, true);
 			HttpProtocolParams.setHttpElementCharset(params, "UTF-8");
-			HttpProtocolParams.setUserAgent(params, "ham 1.0.3 for android");
+
+			String agent = "ham ";
+
+			try {
+				ComponentName compName = new ComponentName(this, Solar.class);
+				PackageInfo pkgInfo = this.getPackageManager().getPackageInfo(compName.getPackageName(), 0);
+				agent += "(v" + pkgInfo.versionName + "-" +  pkgInfo.versionCode + ") ";
+			} catch (android.content.pm.PackageManager.NameNotFoundException e) {
+				agent += "(version unknown) ";
+			}
+			
+			agent += "for android";
+
+			HttpProtocolParams.setUserAgent(params, agent);
 
 			DefaultHttpClient client = new DefaultHttpClient(params);
 
