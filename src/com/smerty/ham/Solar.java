@@ -361,6 +361,24 @@ public class Solar extends Activity {
 
 			row = new TableRow(this);
 			text = new TextView(this);
+			text.setText("6m Es Europe: \t" + conds.eskip6meurope);
+			text.setTextSize(18);
+			row.setPadding(3, 3, 3, 3);
+			row.setBackgroundColor(Color.argb(200, 51, 51, 51));
+			row.addView(text);
+			table.addView(row);
+			
+			row = new TableRow(this);
+			text = new TextView(this);
+			text.setText("4m Es Europe: \t" + conds.eskip4meurope);
+			text.setTextSize(18);
+			row.setPadding(3, 3, 3, 3);
+			row.setBackgroundColor(Color.argb(200, 51, 51, 51));
+			row.addView(text);
+			table.addView(row);
+			
+			row = new TableRow(this);
+			text = new TextView(this);
 			text.setText("2m Es Europe: \t" + conds.eskipeurope);
 			text.setTextSize(18);
 			row.setPadding(3, 3, 3, 3);
@@ -479,7 +497,7 @@ public class Solar extends Activity {
 				xray, sunspots, protonflux, electronflux, aurora,
 				normalization, band1day, band1night, band2day, band2night,
 				band3day, band3night, band4day, band4night, vhfaurora,
-				eskipeurope, eskipnorthamerica, geomagfield, signalnoise;
+				eskipeurope, eskipnorthamerica, eskip6meurope, eskip4meurope, geomagfield, signalnoise;
 
 		public SolarData() {
 			// do nothing
@@ -695,18 +713,25 @@ public class Solar extends Activity {
 					String location = (String) titleElement
 							.getAttribute("location");
 
-					if (name.charAt(0) == 'v') {
+					if (name.equals("vhf-aurora")) {
 						// Toast.makeText(getBaseContext(),"Moo?",
 						// Toast.LENGTH_SHORT).show();
 						retval.vhfaurora = (textNodes.item(0)).getNodeValue();
-					} else if (name.charAt(0) == 'E') {
-						if (location.charAt(0) == 'e') {
+					} else if (name.equals("E-Skip")) {
+						if (location.equals("europe")) {
 							retval.eskipeurope = (textNodes.item(0))
 									.getNodeValue();
-						} else if (location.charAt(0) == 'n') {
+						} else if (location.equals("north_america")) {
 							retval.eskipnorthamerica = (textNodes.item(0))
 									.getNodeValue();
-						}
+						} else if (location.equals("europe_6m")) {
+							retval.eskip6meurope = (textNodes.item(0))
+							.getNodeValue();
+						} else if (location.equals("europe_4m")) {
+							retval.eskip4meurope = (textNodes.item(0))
+							.getNodeValue();
+						} 
+						
 					}
 				}
 
