@@ -91,6 +91,13 @@ public class ham extends Activity {
 		
 		);
 		
+		row.setOnTouchListener(
+				new View.OnTouchListener() {
+					
+					public boolean onTouch(View arg0, MotionEvent arg1) {
+						// TODO Auto-generated method stub
+						Log.v("onTouch", "touch");
+						return false;
 		
     	
     	return row;
@@ -119,7 +126,7 @@ public class ham extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         case MENU_ABOUT:
-        	Toast.makeText(getBaseContext(),"Developed by Smerty Software", 
+        	Toast.makeText(getBaseContext(),"Developed by Smerty Software (Paul K6SH)",
     						Toast.LENGTH_LONG).show();
             return true;
         case MENU_REFRESH:
