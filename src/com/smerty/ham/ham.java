@@ -90,15 +90,6 @@ public class ham extends Activity {
 				}		
 		
 		);
-		
-		row.setOnTouchListener(
-				new View.OnTouchListener() {
-					
-					public boolean onTouch(View arg0, MotionEvent arg1) {
-						// TODO Auto-generated method stub
-						Log.v("onTouch", "touch");
-						return false;
-		
     	
     	return row;
     }
