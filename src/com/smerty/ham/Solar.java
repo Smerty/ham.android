@@ -638,33 +638,33 @@ public class Solar extends Activity {
 					String bandname = (String) titleElement
 							.getAttribute("name");
 
-					if (daynight.charAt(0) == 'd') {
+					if (daynight.equals("day")) {
 						// Toast.makeText(getBaseContext(),"Moo?",
 						// Toast.LENGTH_SHORT).show();
-						if (bandname.charAt(0) == '8') {
+						if (bandname.equals("80m-40m")) {
 							retval.band1day = ""
 									+ (textNodes.item(0)).getNodeValue();
-						} else if (bandname.charAt(0) == '3') {
+						} else if (bandname.equals("30m-20m")) {
 							retval.band2day = (textNodes.item(0))
 									.getNodeValue();
-						} else if (bandname.charAt(1) == '7') {
+						} else if (bandname.equals("17m-15m")) {
 							retval.band3day = (textNodes.item(0))
 									.getNodeValue();
-						} else if (bandname.charAt(1) == '2') {
+						} else if (bandname.equals("12m-10m")) {
 							retval.band4day = (textNodes.item(0))
 									.getNodeValue();
 						}
-					} else if (daynight.charAt(0) == 'n') {
-						if (bandname.charAt(0) == '8') {
+					} else if (daynight.equals("night")) {
+						if (bandname.equals("80m-40m")) {
 							retval.band1night = (textNodes.item(0))
 									.getNodeValue();
-						} else if (bandname.charAt(0) == '3') {
+						} else if (bandname.equals("30m-20m")) {
 							retval.band2night = (textNodes.item(0))
 									.getNodeValue();
-						} else if (bandname.charAt(1) == '7') {
+						} else if (bandname.equals("17m-15m")) {
 							retval.band3night = (textNodes.item(0))
 									.getNodeValue();
-						} else if (bandname.charAt(1) == '2') {
+						} else if (bandname.equals("12m-10m")) {
 							retval.band4night = (textNodes.item(0))
 									.getNodeValue();
 						}
