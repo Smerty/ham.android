@@ -15,10 +15,6 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-    
-    <sdk>
-    	<path>${env.ANDROID_HOME}</path>
-    </sdk>
 
     <build>
         <sourceDirectory>src</sourceDirectory>
