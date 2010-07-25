@@ -22,12 +22,15 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.AsyncTask.Status;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -36,19 +39,103 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class Solar extends Activity {
+	
+	ScrollView sv;
+	TableLayout table;
+	
+	SolarData conds;
+	
+	private AsyncTask<Solar, Integer, Integer> updatetask;
+	public ProgressDialog progressDialog;
+	
+	
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		ScrollView sv = new ScrollView(this);
+		sv = new ScrollView(this);
 
-		TableLayout table = new TableLayout(this);
+		table = new TableLayout(this);
 
 		// table.setStretchAllColumns(true);
 		table.setShrinkAllColumns(true);
 
-		SolarData conds = this.getSolar();
+		
+		sv.addView(table);
+		
+		
+		
+		if (this.updatetask == null) {
+			Log.d("startDownloading", "task was null, calling execute");
+			this.updatetask = new UpdateFeedTask().execute(this);
+		} else {
+			Status s = this.updatetask.getStatus();
+			if (s == Status.FINISHED) {
+				Log
+						.d("updatetask",
+								"task wasn't null, status finished, calling execute");
+				this.updatetask = new UpdateFeedTask().execute(this);
+			}
+		}
+		
+		// sv.setLayoutParams(new ViewGroup.LayoutParams(
+		// ViewGroup.LayoutParams.FILL_PARENT,
+		// ViewGroup.LayoutParams.FILL_PARENT
+		// ));
+		// new TableLayout.LayoutParams( LayoutParams.FILL_PARENT,
+		// LayoutParams.WRAP_CONTENT))
+		// sv.setBackgroundColor(Color.argb(200, 51, 51, 51));
+
+		setContentView(sv);
+	}
+	
+	private class UpdateFeedTask extends AsyncTask<Solar, Integer, Integer> {
+
+		Solar that;
+
+		protected Integer doInBackground(Solar... thats) {
+
+			if (that == null) {
+				this.that = thats[0];
+			}
+
+			publishProgress(0);
+			
+			try {
+				that.conds = that.getSolar();
+			} catch (Exception e) {
+				that.conds = null;
+			}
+			
+
+
+			publishProgress(100);
+
+			return 0;
+		}
+
+		protected void onProgressUpdate(Integer... progress) {
+			Log.d("onProgressUpdate", progress[0].toString());
+			if (progress[0] == 0) {
+				that.progressDialog = ProgressDialog.show(that, "Ham",
+						"Downloading Solar XML Feed", true, false);
+			}
+			if (progress[0] == 100) {
+				that.progressDialog.dismiss();
+			}
+
+		}
+
+		protected void onPostExecute(Integer result) {
+			//Log.d("onPostExecute", that.getApplicationInfo().packageName);
+			that.allTogether();
+			
+		}
+	}
+	
+	public void allTogether() {
+		
 
 		TableRow row = new TableRow(this);
 		TextView text = new TextView(this);
@@ -464,16 +551,6 @@ public class Solar extends Activity {
 			table.addView(row);
 		}
 
-		sv.addView(table);
-		// sv.setLayoutParams(new ViewGroup.LayoutParams(
-		// ViewGroup.LayoutParams.FILL_PARENT,
-		// ViewGroup.LayoutParams.FILL_PARENT
-		// ));
-		// new TableLayout.LayoutParams( LayoutParams.FILL_PARENT,
-		// LayoutParams.WRAP_CONTENT))
-		// sv.setBackgroundColor(Color.argb(200, 51, 51, 51));
-
-		setContentView(sv);
 	}
 
 	public int ConditionColor(String conditionStr) {
