@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:id="@+id/SearchLL01">
+
+<EditText android:id="@+id/EditText01" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:singleLine="true" android:editable="true">
+</EditText><Button android:text="QRZ.com Search" android:id="@+id/Button01" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+
+</LinearLayout>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:id="@+id/ResultsLL01">
+<TextView android:text="empty1" android:id="@+id/TextProfileName" android:textSize="24sp" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+<TextView android:text="empty1" android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+<TextView android:text="empty2" android:id="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+<TextView android:text="empty3" android:id="@+id/TextView03" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+<TextView android:text="empty4" android:id="@+id/TextView04" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+<TextView android:text="empty1" android:id="@+id/TextProfileClass" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+<TextView android:text="empty1" android:id="@+id/TextProfileEmail" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+<TextView android:text="empty1" android:id="@+id/TextProfileExpDate" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+
+</LinearLayout>
+
+</LinearLayout>

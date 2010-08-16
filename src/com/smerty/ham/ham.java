@@ -18,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class ham extends Activity {
+	
+	public static final String PREFS_NAME = "HamPrefs";
+	
     /** Called when the activity is first created. */
     @Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -31,9 +34,9 @@ public class ham extends Activity {
 		table.setShrinkAllColumns(true);
 		
 		table.addView(this.getTableRow("Solar Conditions", "current solar conditions", Solar.class, R.drawable.solar_icon, null, this));
-		//table.addView(this.getTableRow("Callsign Lookup", "current solar conditions", QRZ.class, this));
+		table.addView(this.getTableRow("Callsign Lookup", "current solar conditions", QRZ.class, R.drawable.search_icon, null, this));
 		//table.addView(this.getTableRow("PSKreporter", "current solar conditions", PSKReporter.class, this));
-		//table.addView(this.getTableRow("Settings", "current solar conditions", Solar.class, this));
+		table.addView(this.getTableRow("Settings", "ham settings", Settings.class, R.drawable.gear_icon, null, this));
 		table.addView(this.getTableRow("Email Developer", "current solar conditions", null, R.drawable.mail_icon, "mailto:ham.android@smerty.org?subject=ham for android", this));
 		//table.addView(this.getTableRow("Credits", "current solar conditions", null, R.drawable.gear_icon, "http://www.smerty.org", this));
 		table.addView(this.getTableRow("Exit", "current solar conditions", null, R.drawable.house_icon, null, this));

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+<TextView android:text="QRZ.com XML Subscription" android:id="@+id/TextProfileName" android:textSize="24sp" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal">
+  <TextView android:text="Username: " android:id="@+id/TextProfileName" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+<EditText android:id="@+id/EditText01" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:singleLine="true" android:editable="true"></EditText>
+</LinearLayout>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal">
+  <TextView android:text="Password:  " android:id="@+id/TextProfileName" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+<EditText android:id="@+id/EditText02" android:password="true" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:singleLine="true" android:editable="true"></EditText>
+</LinearLayout>
+
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+  	android:layout_width="fill_parent"
+  	android:layout_height="wrap_content"
+	android:orientation="horizontal">
+<Button android:text="Save" android:id="@+id/Button01" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+<Button android:text="Cancel" android:id="@+id/Button02" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+<Button android:text="Delete" android:id="@+id/Button03" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+</LinearLayout>
+
+</LinearLayout>
