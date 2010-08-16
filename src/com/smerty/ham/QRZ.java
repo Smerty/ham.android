@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class QRZ extends Activity {
 
@@ -135,6 +136,7 @@ public class QRZ extends Activity {
 			LinearLayout resultsLL = (LinearLayout) findViewById(R.id.ResultsLL01);
 
 			if (result == null) {
+				Toast.makeText(that.getBaseContext(), "No results found, incorrect QRZ.com username/password set or no QRZ.com subscription", Toast.LENGTH_LONG).show();
 				resultsLL.setVisibility(View.INVISIBLE);
 				return;
 			}
