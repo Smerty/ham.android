@@ -749,18 +749,6 @@ public class Solar extends Activity {
 						Toast.makeText(getBaseContext(), daynight,
 								Toast.LENGTH_SHORT).show();
 					}
-
-					String strTitle = bandname + " " + daynight + " "
-							+ (textNodes.item(0)).getNodeValue();
-
-					// String strTitle = titleElement.getAttribute("name") + " "
-					// +
-					// titleElement.getAttribute("time") + " " +
-					// (textNodes.item(0)).getNodeValue();
-
-					// ---display the title---
-					// Toast.makeText(getBaseContext(),strTitle,
-					// Toast.LENGTH_SHORT).show();
 				}
 			}
 
