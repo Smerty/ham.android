@@ -10,25 +10,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    <activity android:name=".Solar">
+    <activity android:name=".Solar" android:configChanges="orientation">
                 <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
     </activity>
-    <activity android:name=".PSKReporter">
+    <activity android:name=".PSKReporter" android:configChanges="orientation">
                 <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
     </activity>
-    <activity android:name=".QRZ">
+    <activity android:name=".QRZ" android:configChanges="orientation">
                 <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
     </activity>
-    <activity android:name=".Settings">
+    <activity android:name=".Settings" android:configChanges="orientation">
                 <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
