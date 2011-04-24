@@ -46,7 +46,7 @@ public class ham extends Activity {
 		setContentView(sv);
 	}
 
-	private TableRow getTableRow(final String rowTitle, final String rowDescription, final Class activity, int iconId, final String url, final Activity that) {
+	private TableRow getTableRow(final String rowTitle, final String rowDescription, final Class<?> activity, int iconId, final String url, final Activity that) {
 		TableRow row = new TableRow(that);
 
 		LinearLayout ll = new LinearLayout(that);

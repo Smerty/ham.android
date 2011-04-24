@@ -28,6 +28,7 @@ public class QrzDb {
 	private String sessionKey;
 	private String agent = "Generic Java Client";
 
+	@SuppressWarnings("unused")
 	private QrzDb() {
 		// TODO Auto-generated constructor stub
 	}
@@ -129,11 +130,10 @@ public class QrzDb {
 	private boolean refreshSessionKey() throws QrzDbSessionException {
 
 		if (this.login == null) {
-			this.refreshSessionKey();
-
-			if (this.password == null) {
-				throw new QrzDbSessionException("no password specified");
-			}
+			throw new QrzDbSessionException("no login specified");
+		}
+		if (this.password == null) {
+			throw new QrzDbSessionException("no password specified");
 		}
 
 		QrzQueryParams qp = new QrzQueryParams();

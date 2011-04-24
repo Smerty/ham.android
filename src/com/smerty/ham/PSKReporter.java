@@ -44,13 +44,6 @@ public class PSKReporter extends Activity {
 
 		this.getSolar(ll);
 
-		if (ll == null) {
-			ll = new LinearLayout(this);
-			TextView text5 = new TextView(this);
-			text5.setText("Empty PSKReport!");
-			ll.addView(text5);
-		}
-
 		sv.addView(ll);
 
 		setContentView(sv);
@@ -91,7 +84,6 @@ public class PSKReporter extends Activity {
 			try {
 				HttpGet method = new HttpGet(
 						"http://www.pskreporter.info/query?noactive=1&rptlimit=300&flowStartSeconds=-86400&rronly=1&receiverCallsign=KI6KIK");
-				// HttpGet method = new HttpGet("http://www.yahoo.com");
 				HttpResponse res = client.execute(method);
 				data = res.getEntity().getContent();
 			} catch (IOException e) {
@@ -148,13 +140,6 @@ public class PSKReporter extends Activity {
 			// Toast.makeText(getBaseContext(),itemNodes.getLength(),
 			// Toast.LENGTH_SHORT).show();
 
-			// if(true) {
-			// return retval;
-			// }
-
-			TextView text3 = new TextView(this);
-			text3.setText("PSKReport3!");
-			retval.addView(text3);
 
 			if (itemNodes == null || itemNodes.getLength() == 0) {
 				return;
@@ -162,42 +147,9 @@ public class PSKReporter extends Activity {
 				Log.v("moot", "not empty");
 			}
 
-			TextView text4 = new TextView(this);
-			text4.setText("PSKReport4!");
-			retval.addView(text4);
-
-			// for (int i = 0; i < itemNodes.getLength(); i++) {
-			// Node itemNode = itemNodes.item(i);
-			// if (itemNode.getNodeType() == Node.ELEMENT_NODE)
-			// {
-			// ---convert the Node into an Element---
-			// Element itemElement = (Element) itemNode;
-
-			// String daynight =
-			// (String)itemElement.getAttribute("senderCallsign");
-			// String bandname = (String)itemElement.getAttribute("senderDXCC");
-
-			// Log.v("Sender", daynight);
-			// Log.v("Senderd", bandname);
-
-			// String strTitle = titleElement.getAttribute("name") + " " +
-			// titleElement.getAttribute("time") + " " +
-			// (textNodes.item(0)).getNodeValue();
-
-			// ---display the title---
-			// Toast.makeText(getBaseContext(),daynight,
-			// Toast.LENGTH_SHORT).show();
-			// }
-			// }
 
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
-		TextView text2 = new TextView(this);
-		text2.setText("PSKReport2!");
-		retval.addView(text2);
-
-		// return retval;
 	}
 }

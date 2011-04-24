@@ -1,7 +1,6 @@
 
 package org.smerty.ham.solar;
 
-import java.util.List;
 
 public class Source{
    	private String url;

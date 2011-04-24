@@ -288,7 +288,7 @@ public class Solar extends Activity {
 				text.setText("\t\t" + calccond.getDay());
 				// text.setGravity(1);
 				text.setTextSize(18);
-				text.setTextColor(ConditionColor(calccond.getDay()));
+				text.setTextColor(conditionColor(calccond.getDay()));
 				// text.setBackgroundColor(Color.argb(200, 0, 51, 0));
 				llayout.addView(text);
 
@@ -296,7 +296,7 @@ public class Solar extends Activity {
 				text.setText("\t\t" + calccond.getNight());
 				text.setTextSize(18);
 				// text.setGravity(1);
-				text.setTextColor(ConditionColor(calccond.getNight()));
+				text.setTextColor(conditionColor(calccond.getNight()));
 				// text.setBackgroundColor(Color.argb(200, 0, 9, 51));
 				llayout.addView(text);
 
@@ -411,7 +411,7 @@ public class Solar extends Activity {
 
 	}
 
-	public int ConditionColor(String conditionStr) {
+	public int conditionColor(String conditionStr) {
 
 		if (conditionStr.equals("Poor")) {
 			return Color.argb(200, 255, 0, 0);

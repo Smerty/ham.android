@@ -174,7 +174,6 @@ public class QRZ extends Activity {
 			}
 
 			TextView nameText = (TextView) findViewById(R.id.TextProfileName);
-			TextView callText = (TextView) findViewById(R.id.TextView01);
 
 			String displayName = "";
 			if (result.getFname() != null && result.getFname().length() > 0) {
