@@ -81,7 +81,7 @@ public class QrzDb {
 			apiParams = new QrzQueryParams();
 		}
 
-                // qrz.com dropped ssl support, passwords sent in plaintext, huge security flaw
+        // qrz.com dropped ssl support, passwords sent in plaintext, huge security flaw
 		String requestUrl = "http://www.qrz.com/xml?" + apiParams.toString();
 
 		HttpGet method = new HttpGet(requestUrl);
