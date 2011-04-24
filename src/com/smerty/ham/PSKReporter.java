@@ -15,14 +15,12 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.sax.Element;
 import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;

@@ -17,18 +17,28 @@
 </LinearLayout>
 <LinearLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="wrap_content"
+  android:layout_width="fill_parent"
   android:layout_height="wrap_content"
   android:orientation="vertical"
-  android:id="@+id/ResultsLL01">
-<TextView android:text="empty1" android:id="@+id/TextProfileName" android:textSize="24sp" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-<TextView android:text="empty1" android:id="@+id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-<TextView android:text="empty2" android:id="@+id/TextView02" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-<TextView android:text="empty3" android:id="@+id/TextView03" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-<TextView android:text="empty4" android:id="@+id/TextView04" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-<TextView android:text="empty1" android:id="@+id/TextProfileClass" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-<TextView android:text="empty1" android:id="@+id/TextProfileEmail" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-<TextView android:text="empty1" android:id="@+id/TextProfileExpDate" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+  android:id="@+id/ResultsLL">
+<TextView android:text="Name" android:id="@+id/TextProfileName" android:textSize="28sp" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical"
+  android:id="@+id/ResultsSV">
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:id="@+id/ProfileTable"
+			  		android:layout_width="fill_parent"
+  						android:layout_height="wrap_content">
+
+</TableLayout>
+
+</ScrollView>
+
+
+
 
 
 </LinearLayout>
