@@ -28,128 +28,125 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class PSKReporter extends Activity {
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+  /** Called when the activity is first created. */
+  @Override
+  public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
 
-		TextView text = new TextView(this);
-		text.setText("PSKReport!");
+    TextView text = new TextView(this);
+    text.setText("PSKReport!");
 
-		ScrollView sv = new ScrollView(this);
+    ScrollView sv = new ScrollView(this);
 
-		LinearLayout ll = new LinearLayout(this);
+    LinearLayout ll = new LinearLayout(this);
 
-		ll.addView(text);
+    ll.addView(text);
 
-		this.getSolar(ll);
+    this.getSolar(ll);
 
-		sv.addView(ll);
+    sv.addView(ll);
 
-		setContentView(sv);
-	}
+    setContentView(sv);
+  }
 
-	public class PSKReport {
-		public String rxCallsign, rxCountry, rxGrid, txCallsign, txCountry,
-				txGrid, Timestamp, Datestr, Frequency, Band, Mode;
+  public class PSKReport {
+    public String rxCallsign, rxCountry, rxGrid, txCallsign, txCountry, txGrid,
+        Timestamp, Datestr, Frequency, Band, Mode;
 
-		public PSKReport() {
-			// do nothing
-		}
-	}
+    public PSKReport() {
+      // do nothing
+    }
+  }
 
-	public void getSolar(LinearLayout retval) {
+  public void getSolar(LinearLayout retval) {
 
-		// LinearLayout retval = new LinearLayout(this);
+    // LinearLayout retval = new LinearLayout(this);
 
-		TextView text1 = new TextView(this);
-		text1.setText("PSKReport1!");
-		retval.addView(text1);
+    TextView text1 = new TextView(this);
+    text1.setText("PSKReport1!");
+    retval.addView(text1);
 
-		// SolarData retval = new SolarData();
-		// Log.v("test", "Moo");
-		try {
+    // SolarData retval = new SolarData();
+    // Log.v("test", "Moo");
+    try {
 
-			HttpParams params = new BasicHttpParams();
-			HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-			HttpProtocolParams.setContentCharset(params, "UTF-8");
-			HttpProtocolParams.setUseExpectContinue(params, true);
-			HttpProtocolParams.setHttpElementCharset(params, "UTF-8");
-			HttpProtocolParams.setUserAgent(params, "ham 1.1 for android");
+      HttpParams params = new BasicHttpParams();
+      HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
+      HttpProtocolParams.setContentCharset(params, "UTF-8");
+      HttpProtocolParams.setUseExpectContinue(params, true);
+      HttpProtocolParams.setHttpElementCharset(params, "UTF-8");
+      HttpProtocolParams.setUserAgent(params, "ham 1.1 for android");
 
-			DefaultHttpClient client = new DefaultHttpClient(params);
+      DefaultHttpClient client = new DefaultHttpClient(params);
 
-			InputStream data = null;
+      InputStream data = null;
 
-			try {
-				HttpGet method = new HttpGet(
-						"http://www.pskreporter.info/query?noactive=1&rptlimit=300&flowStartSeconds=-86400&rronly=1&receiverCallsign=KI6KIK");
-				HttpResponse res = client.execute(method);
-				data = res.getEntity().getContent();
-			} catch (IOException e) {
-				e.printStackTrace();
-				Toast.makeText(getBaseContext(), "Network Failure...",
-						Toast.LENGTH_SHORT).show();
-				return;
-			}
+      try {
+        HttpGet method = new HttpGet(
+            "http://www.pskreporter.info/query?noactive=1&rptlimit=300&flowStartSeconds=-86400&rronly=1&receiverCallsign=KI6KIK");
+        HttpResponse res = client.execute(method);
+        data = res.getEntity().getContent();
+      } catch (IOException e) {
+        e.printStackTrace();
+        Toast.makeText(getBaseContext(), "Network Failure...",
+            Toast.LENGTH_SHORT).show();
+        return;
+      }
 
-			Document doc = null;
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db;
+      Document doc = null;
+      DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+      DocumentBuilder db;
 
-			try {
-				db = dbf.newDocumentBuilder();
-				doc = db.parse(data);
-				// finish();
-			} catch (SAXParseException e) {
-				e.printStackTrace();
-				Toast.makeText(getBaseContext(), "SAXParseException, bad XML?",
-						Toast.LENGTH_SHORT).show();
-				return;
-				// finish();
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				Toast.makeText(getBaseContext(), "SAXException",
-						Toast.LENGTH_SHORT).show();
-				e.printStackTrace();
-				return;
-				// finish();
-			} catch (ParserConfigurationException e) {
-				// TODO Auto-generated catch block
-				Toast.makeText(getBaseContext(),
-						"ParserConfigurationException", Toast.LENGTH_SHORT)
-						.show();
-				e.printStackTrace();
-				return;
-			}
+      try {
+        db = dbf.newDocumentBuilder();
+        doc = db.parse(data);
+        // finish();
+      } catch (SAXParseException e) {
+        e.printStackTrace();
+        Toast.makeText(getBaseContext(), "SAXParseException, bad XML?",
+            Toast.LENGTH_SHORT).show();
+        return;
+        // finish();
+      } catch (SAXException e) {
+        // TODO Auto-generated catch block
+        Toast.makeText(getBaseContext(), "SAXException", Toast.LENGTH_SHORT)
+            .show();
+        e.printStackTrace();
+        return;
+        // finish();
+      } catch (ParserConfigurationException e) {
+        // TODO Auto-generated catch block
+        Toast.makeText(getBaseContext(), "ParserConfigurationException",
+            Toast.LENGTH_SHORT).show();
+        e.printStackTrace();
+        return;
+      }
 
-			TextView text2 = new TextView(this);
-			text2.setText("PSKReport2!");
-			retval.addView(text2);
+      TextView text2 = new TextView(this);
+      text2.setText("PSKReport2!");
+      retval.addView(text2);
 
-			doc.getDocumentElement().normalize();
+      doc.getDocumentElement().normalize();
 
-			// Toast.makeText(getBaseContext(),"Woot",
-			// Toast.LENGTH_SHORT).show();
+      // Toast.makeText(getBaseContext(),"Woot",
+      // Toast.LENGTH_SHORT).show();
 
-			NodeList itemNodes = null;
+      NodeList itemNodes = null;
 
-			// NodeList itemNodes =
-			// doc.getElementsByTagName("receptionReport").item(0).getChildNodes();
-			// NodeList itemNodes = doc.getElementsByTagName("receptionReport");
-			// Toast.makeText(getBaseContext(),itemNodes.getLength(),
-			// Toast.LENGTH_SHORT).show();
+      // NodeList itemNodes =
+      // doc.getElementsByTagName("receptionReport").item(0).getChildNodes();
+      // NodeList itemNodes = doc.getElementsByTagName("receptionReport");
+      // Toast.makeText(getBaseContext(),itemNodes.getLength(),
+      // Toast.LENGTH_SHORT).show();
 
+      if (itemNodes == null || itemNodes.getLength() == 0) {
+        return;
+      } else {
+        Log.v("moot", "not empty");
+      }
 
-			if (itemNodes == null || itemNodes.getLength() == 0) {
-				return;
-			} else {
-				Log.v("moot", "not empty");
-			}
-
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-	}
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
+  }
 }
