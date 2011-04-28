@@ -9,7 +9,7 @@ public class Calculatedvhfconditions {
     return this.phenomenon;
   }
 
-  public void setPhenomenon(List<Phenomenon> phenomenon) {
-    this.phenomenon = phenomenon;
+  public void setPhenomenon(final List<Phenomenon> phenomenonIn) {
+    this.phenomenon = phenomenonIn;
   }
 }

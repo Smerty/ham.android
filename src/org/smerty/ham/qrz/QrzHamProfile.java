@@ -60,331 +60,331 @@ public class QrzHamProfile {
     return AreaCode;
   }
 
-  public void setAreaCode(String AreaCode) {
-    this.AreaCode = AreaCode;
+  public void setAreaCode(final String AreaCodeIn) {
+    this.AreaCode = AreaCodeIn;
   }
 
   public String getDST() {
     return DST;
   }
 
-  public void setDST(String DST) {
-    this.DST = DST;
+  public void setDST(final String DSTIn) {
+    this.DST = DSTIn;
   }
 
   public String getGMTOffset() {
     return GMTOffset;
   }
 
-  public void setGMTOffset(String GMTOffset) {
-    this.GMTOffset = GMTOffset;
+  public void setGMTOffset(final String GMTOffsetIn) {
+    this.GMTOffset = GMTOffsetIn;
   }
 
   public String getMSA() {
     return MSA;
   }
 
-  public void setMSA(String MSA) {
-    this.MSA = MSA;
+  public void setMSA(final String MSAIn) {
+    this.MSA = MSAIn;
   }
 
   public String getTimeZone() {
     return TimeZone;
   }
 
-  public void setTimeZone(String TimeZone) {
-    this.TimeZone = TimeZone;
+  public void setTimeZone(final String TimeZoneIn) {
+    this.TimeZone = TimeZoneIn;
   }
 
   public String getAddr1() {
     return addr1;
   }
 
-  public void setAddr1(String addr1) {
-    this.addr1 = addr1;
+  public void setAddr1(final String addr1In) {
+    this.addr1 = addr1In;
   }
 
   public String getAddr2() {
     return addr2;
   }
 
-  public void setAddr2(String addr2) {
-    this.addr2 = addr2;
+  public void setAddr2(final String addr2In) {
+    this.addr2 = addr2In;
   }
 
   public String getBio() {
     return bio;
   }
 
-  public void setBio(String bio) {
-    this.bio = bio;
+  public void setBio(final String bioIn) {
+    this.bio = bioIn;
   }
 
   public String getCall() {
     return call;
   }
 
-  public void setCall(String call) {
-    this.call = call;
+  public void setCall(final String callIn) {
+    this.call = callIn;
   }
 
   public String getCcode() {
     return ccode;
   }
 
-  public void setCcode(String ccode) {
-    this.ccode = ccode;
+  public void setCcode(final String ccodeIn) {
+    this.ccode = ccodeIn;
   }
 
   public String getCodes() {
     return codes;
   }
 
-  public void setCodes(String codes) {
-    this.codes = codes;
+  public void setCodes(final String codesIn) {
+    this.codes = codesIn;
   }
 
   public String getCountry() {
     return country;
   }
 
-  public void setCountry(String country) {
-    this.country = country;
+  public void setCountry(final String countryIn) {
+    this.country = countryIn;
   }
 
   public String getCounty() {
     return county;
   }
 
-  public void setCounty(String county) {
-    this.county = county;
+  public void setCounty(final String countyIn) {
+    this.county = countyIn;
   }
 
   public String getCqzone() {
     return cqzone;
   }
 
-  public void setCqzone(String cqzone) {
-    this.cqzone = cqzone;
+  public void setCqzone(final String cqzoneIn) {
+    this.cqzone = cqzoneIn;
   }
 
   public String getDxcc() {
     return dxcc;
   }
 
-  public void setDxcc(String dxcc) {
-    this.dxcc = dxcc;
+  public void setDxcc(final String dxccIn) {
+    this.dxcc = dxccIn;
   }
 
   public String getEfdate() {
     return efdate;
   }
 
-  public void setEfdate(String efdate) {
-    this.efdate = efdate;
+  public void setEfdate(final String efdateIn) {
+    this.efdate = efdateIn;
   }
 
   public String getEmail() {
     return email;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public void setEmail(final String emailIn) {
+    this.email = emailIn;
   }
 
   public String getEqsl() {
     return eqsl;
   }
 
-  public void setEqsl(String eqsl) {
-    this.eqsl = eqsl;
+  public void setEqsl(final String eqslIn) {
+    this.eqsl = eqslIn;
   }
 
   public String getExpdate() {
     return expdate;
   }
 
-  public void setExpdate(String expdate) {
-    this.expdate = expdate;
+  public void setExpdate(final String expdateIn) {
+    this.expdate = expdateIn;
   }
 
   public String getFips() {
     return fips;
   }
 
-  public void setFips(String fips) {
-    this.fips = fips;
+  public void setFips(final String fipsIn) {
+    this.fips = fipsIn;
   }
 
   public String getFname() {
     return fname;
   }
 
-  public void setFname(String fname) {
-    this.fname = fname;
+  public void setFname(final String fnameIn) {
+    this.fname = fnameIn;
   }
 
   public String getGrid() {
     return grid;
   }
 
-  public void setGrid(String grid) {
-    this.grid = grid;
+  public void setGrid(final String gridIn) {
+    this.grid = gridIn;
   }
 
   public String getHamclass() {
     return hamclass;
   }
 
-  public void setHamclass(String hamclass) {
-    this.hamclass = hamclass;
+  public void setHamclass(final String hamclassIn) {
+    this.hamclass = hamclassIn;
   }
 
   public String getImage() {
     return image;
   }
 
-  public void setImage(String image) {
-    this.image = image;
+  public void setImage(final String imageIn) {
+    this.image = imageIn;
   }
 
   public String getIota() {
     return iota;
   }
 
-  public void setIota(String iota) {
-    this.iota = iota;
+  public void setIota(final String iotaIn) {
+    this.iota = iotaIn;
   }
 
   public String getItuzone() {
     return ituzone;
   }
 
-  public void setItuzone(String ituzone) {
-    this.ituzone = ituzone;
+  public void setItuzone(final String ituzoneIn) {
+    this.ituzone = ituzoneIn;
   }
 
   public String getLand() {
     return land;
   }
 
-  public void setLand(String land) {
-    this.land = land;
+  public void setLand(final String landIn) {
+    this.land = landIn;
   }
 
   public String getLat() {
     return lat;
   }
 
-  public void setLat(String lat) {
-    this.lat = lat;
+  public void setLat(final String latIn) {
+    this.lat = latIn;
   }
 
   public String getLocref() {
     return locref;
   }
 
-  public void setLocref(String locref) {
-    this.locref = locref;
+  public void setLocref(final String locrefIn) {
+    this.locref = locrefIn;
   }
 
   public String getLon() {
     return lon;
   }
 
-  public void setLon(String lon) {
-    this.lon = lon;
+  public void setLon(final String lonIn) {
+    this.lon = lonIn;
   }
 
   public String getLotw() {
     return lotw;
   }
 
-  public void setLotw(String lotw) {
-    this.lotw = lotw;
+  public void setLotw(final String lotwIn) {
+    this.lotw = lotwIn;
   }
 
   public String getModdate() {
     return moddate;
   }
 
-  public void setModdate(String moddate) {
-    this.moddate = moddate;
+  public void setModdate(final String moddateIn) {
+    this.moddate = moddateIn;
   }
 
   public String getMqsl() {
     return mqsl;
   }
 
-  public void setMqsl(String mqsl) {
-    this.mqsl = mqsl;
+  public void setMqsl(final String mqslIn) {
+    this.mqsl = mqslIn;
   }
 
   public String getName() {
     return name;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setName(final String nameIn) {
+    this.name = nameIn;
   }
 
   public String getP_call() {
     return p_call;
   }
 
-  public void setP_call(String p_call) {
-    this.p_call = p_call;
+  public void setP_call(final String p_callIn) {
+    this.p_call = p_callIn;
   }
 
   public String getQslmgr() {
     return qslmgr;
   }
 
-  public void setQslmgr(String qslmgr) {
-    this.qslmgr = qslmgr;
+  public void setQslmgr(final String qslmgrIn) {
+    this.qslmgr = qslmgrIn;
   }
 
   public String getState() {
     return state;
   }
 
-  public void setState(String state) {
-    this.state = state;
+  public void setState(final String stateIn) {
+    this.state = stateIn;
   }
 
   public String getU_views() {
     return u_views;
   }
 
-  public void setU_views(String u_views) {
-    this.u_views = u_views;
+  public void setU_views(final String u_viewsIn) {
+    this.u_views = u_viewsIn;
   }
 
   public String getUrl() {
     return url;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
+  public void setUrl(final String urlIn) {
+    this.url = urlIn;
   }
 
   public String getUser() {
     return user;
   }
 
-  public void setUser(String user) {
-    this.user = user;
+  public void setUser(final String userIn) {
+    this.user = userIn;
   }
 
   public String getZip() {
     return zip;
   }
 
-  public void setZip(String zip) {
-    this.zip = zip;
+  public void setZip(final String zipIn) {
+    this.zip = zipIn;
   }
 
-  public boolean setProfileField(String fieldName, String fieldValue) {
+  public boolean setProfileField(final String fieldName, final String fieldValue) {
 
     if (fieldName.equalsIgnoreCase("call")) {
       this.call = fieldValue;

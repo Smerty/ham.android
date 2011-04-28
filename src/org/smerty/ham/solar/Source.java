@@ -8,15 +8,15 @@ public class Source {
     return this.url;
   }
 
-  public void setUrl(String url) {
-    this.url = url;
+  public void setUrl(final String urlIn) {
+    this.url = urlIn;
   }
 
   public String getValue() {
     return this.value;
   }
 
-  public void setValue(String value) {
-    this.value = value;
+  public void setValue(final String valueIn) {
+    this.value = valueIn;
   }
 }

@@ -9,23 +9,23 @@ public class Calculatedconditions {
     return this.band;
   }
 
-  public void setBand(String band) {
-    this.band = band;
+  public void setBand(final String bandIn) {
+    this.band = bandIn;
   }
 
   public String getDay() {
     return this.day;
   }
 
-  public void setDay(String day) {
-    this.day = day;
+  public void setDay(final String dayIn) {
+    this.day = dayIn;
   }
 
   public String getNight() {
     return this.night;
   }
 
-  public void setNight(String night) {
-    this.night = night;
+  public void setNight(final String nightIn) {
+    this.night = nightIn;
   }
 }

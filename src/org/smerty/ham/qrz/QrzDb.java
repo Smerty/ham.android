@@ -33,17 +33,17 @@ public class QrzDb {
     // TODO Auto-generated constructor stub
   }
 
-  public QrzDb(String sessionKey) {
+  public QrzDb(final String sessionKeyIn) {
     super();
     this.login = null;
     this.password = null;
-    this.sessionKey = sessionKey;
+    this.sessionKey = sessionKeyIn;
   }
 
-  public QrzDb(String login, String password) {
+  public QrzDb(final String loginIn, final String passwordIn) {
     super();
-    this.login = login;
-    this.password = password;
+    this.login = loginIn;
+    this.password = passwordIn;
     try {
       this.refreshSessionKey();
     } catch (Exception e) {
@@ -51,11 +51,11 @@ public class QrzDb {
     }
   }
 
-  public QrzDb(String login, String password, String agent) {
+  public QrzDb(final String loginIn, final String passwordIn, final String agentIn) {
     super();
-    this.login = login;
-    this.password = password;
-    this.agent = agent;
+    this.login = loginIn;
+    this.password = passwordIn;
+    this.agent = agentIn;
     try {
       this.refreshSessionKey();
     } catch (Exception e) {
@@ -94,7 +94,7 @@ public class QrzDb {
 
   }
 
-  private String extractSessionKey(InputStream docInputStream)
+  private String extractSessionKey(final InputStream docInputStream)
       throws IOException, SAXException, ParserConfigurationException,
       QrzDbSessionException {
 
@@ -151,7 +151,7 @@ public class QrzDb {
     return false;
   }
 
-  public QrzHamProfile getHamByCallsign(String callsign)
+  public QrzHamProfile getHamByCallsign(final String callsign)
       throws ParserConfigurationException, SAXException {
 
     if (this.sessionKey == null) {
@@ -187,7 +187,7 @@ public class QrzDb {
     return null;
   }
 
-  private QrzHamProfile extractHamProfile(InputStream docInputStream)
+  private QrzHamProfile extractHamProfile(final InputStream docInputStream)
       throws QrzDbSessionException, ParserConfigurationException, SAXException,
       IOException, QrzDbCallsignException {
 

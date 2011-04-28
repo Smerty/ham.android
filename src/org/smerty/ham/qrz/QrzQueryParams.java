@@ -12,9 +12,9 @@ public class QrzQueryParams {
     this.params = new ArrayList<QrzQueryParam>();
   }
 
-  public QrzQueryParams(List<QrzQueryParam> paramList) {
+  public QrzQueryParams(final List<QrzQueryParam> paramListIn) {
     // TODO Auto-generated constructor stub
-    this.params = paramList;
+    this.params = paramListIn;
   }
 
   public boolean add(QrzQueryParam param) {
