@@ -152,7 +152,7 @@ public class Solardata {
   }
 
   public void setSolarflux(final String solarfluxIn) {
-    this.solarflux = solarflux;
+    this.solarflux = solarfluxIn;
   }
 
   public String getSolarwind() {
