@@ -1,8 +1,12 @@
 package com.smerty.ham;
 
+import org.smerty.jham.Location;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -39,6 +43,37 @@ public class ham extends Activity {
     table.addView(this.getTableRow("Callsign Lookup",
         "current solar conditions", QRZ.class, R.drawable.search_icon, null,
         this));
+
+    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+    android.location.Location cellLocation = locationManager
+        .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+    if (cellLocation != null && cellLocation.hasAccuracy()) {
+      Location myLocation = new Location(cellLocation.getLatitude(),
+          cellLocation.getLongitude());
+      TableRow row = new TableRow(this);
+
+      LinearLayout ll = new LinearLayout(this);
+      ll.setGravity(Gravity.CENTER_VERTICAL);
+      ll.setOrientation(LinearLayout.HORIZONTAL);
+
+      ImageView icon = new ImageView(this);
+      icon.setImageResource(R.drawable.radar_icon);
+
+      ll.addView(icon);
+
+      TextView text = new TextView(this);
+      text.setText(" My Grid: " + myLocation.toMaidenhead());
+      text.setTextSize(28);
+
+      row.setPadding(5, 5, 5, 5);
+      row.setBackgroundColor(Color.argb(200, 51, 51, 51));
+
+      ll.addView(text);
+
+      row.addView(ll);
+      table.addView(row);
+    }
     // table.addView(this.getTableRow("PSKreporter", "current solar conditions",
     // PSKReporter.class, R.drawable.radar_icon, null, this));
     table.addView(this.getTableRow("Settings", "ham settings", Settings.class,

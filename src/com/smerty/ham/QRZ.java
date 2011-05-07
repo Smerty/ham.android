@@ -7,6 +7,7 @@ import java.net.URL;
 
 import org.smerty.ham.qrz.QrzDb;
 import org.smerty.ham.qrz.QrzHamProfile;
+import org.smerty.jham.Location;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -17,6 +18,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
@@ -304,6 +306,30 @@ public class QRZ extends Activity {
         tv.setText("Grid: " + result.getGrid());
         tv.setTextSize(24);
         profileTable.addView(tr);
+      } else {
+        // gridText.setText("Grid: n/a");
+      }
+
+      if (result.getGrid() != null) {
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        android.location.Location cellLocation = locationManager
+            .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        if (cellLocation != null && cellLocation.hasAccuracy()) {
+          Location theirLocation = new Location(result.getGrid());
+          Location myLocation = new Location(cellLocation.getLatitude(),
+              cellLocation.getLongitude());
+          double distance = myLocation.getDistanceMi(theirLocation);
+          TableRow tr = new TableRow(that);
+          TextView tv = new TextView(that);
+          tr.addView(tv);
+          tv.setText("Distance: " + ((int) (distance * 100)) / 100.0 + " mi");
+          tv.setTextSize(24);
+          profileTable.addView(tr);
+        }
+
+
       } else {
         // gridText.setText("Grid: n/a");
       }
