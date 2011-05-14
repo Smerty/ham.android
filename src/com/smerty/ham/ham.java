@@ -1,8 +1,13 @@
 package com.smerty.ham;
 
+import org.smerty.jham.Location;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Criteria;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -39,6 +44,21 @@ public class ham extends Activity {
     table.addView(this.getTableRow("Callsign Lookup",
         "current solar conditions", QRZ.class, R.drawable.search_icon, null,
         this));
+
+    LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+    Criteria criteria = new Criteria();
+    criteria.setAccuracy(Criteria.ACCURACY_FINE);
+
+    android.location.Location bestLocation = locationManager
+        .getLastKnownLocation(locationManager.getBestProvider(criteria, true));
+
+    if (bestLocation != null) {
+      Location myLocation = new Location(bestLocation.getLatitude(),
+          bestLocation.getLongitude());
+
+      table.addView(this.getTableRow("My Grid: " + myLocation.toMaidenhead(),
+          "geo tools", Geo.class, R.drawable.radar_icon, null, this));
+    }
     // table.addView(this.getTableRow("PSKreporter", "current solar conditions",
     // PSKReporter.class, R.drawable.radar_icon, null, this));
     table.addView(this.getTableRow("Settings", "ham settings", Settings.class,

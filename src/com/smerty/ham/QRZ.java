@@ -7,6 +7,7 @@ import java.net.URL;
 
 import org.smerty.ham.qrz.QrzDb;
 import org.smerty.ham.qrz.QrzHamProfile;
+import org.smerty.jham.Location;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -17,6 +18,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.Criteria;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
@@ -304,6 +307,43 @@ public class QRZ extends Activity {
         tv.setText("Grid: " + result.getGrid());
         tv.setTextSize(24);
         profileTable.addView(tr);
+      } else {
+        // gridText.setText("Grid: n/a");
+      }
+
+      if (result.getGrid() != null) {
+
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_FINE);
+
+        android.location.Location bestLocation = locationManager
+            .getLastKnownLocation(locationManager.getBestProvider(criteria,
+                true));
+
+
+        if (bestLocation != null) {
+          Location theirLocation = new Location(result.getGrid());
+          Location myLocation = new Location(bestLocation.getLatitude(),
+              bestLocation.getLongitude());
+          double distance = myLocation.getDistanceMi(theirLocation);
+          TableRow tr = new TableRow(that);
+          TextView tv = new TextView(that);
+          tr.addView(tv);
+          tv.setText("Distance: " + ((int) (distance * 100)) / 100.0 + " mi");
+          tv.setTextSize(24);
+          profileTable.addView(tr);
+
+          int bearing = (int) myLocation.getBearing(theirLocation);
+          tr = new TableRow(that);
+          tv = new TextView(that);
+          tr.addView(tv);
+          tv.setText("Bearing: " + bearing + " deg");
+          tv.setTextSize(24);
+          profileTable.addView(tr);
+        }
+
+
       } else {
         // gridText.setText("Grid: n/a");
       }
