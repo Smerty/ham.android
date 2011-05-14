@@ -31,7 +31,16 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    
     <activity android:name=".QRZ" android:configChanges="orientation">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+
+    <activity android:name=".Geo"
+      android:configChanges="orientation">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -55,6 +64,6 @@
   </application>
   <uses-sdk android:minSdkVersion="4" />
   <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 </manifest> 

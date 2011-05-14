@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Criteria;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,34 +46,18 @@ public class ham extends Activity {
         this));
 
     LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-    android.location.Location cellLocation = locationManager
-        .getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+    Criteria criteria = new Criteria();
+    criteria.setAccuracy(Criteria.ACCURACY_FINE);
 
-    if (cellLocation != null && cellLocation.hasAccuracy()) {
-      Location myLocation = new Location(cellLocation.getLatitude(),
-          cellLocation.getLongitude());
-      TableRow row = new TableRow(this);
+    android.location.Location bestLocation = locationManager
+        .getLastKnownLocation(locationManager.getBestProvider(criteria, true));
 
-      LinearLayout ll = new LinearLayout(this);
-      ll.setGravity(Gravity.CENTER_VERTICAL);
-      ll.setOrientation(LinearLayout.HORIZONTAL);
+    if (bestLocation != null) {
+      Location myLocation = new Location(bestLocation.getLatitude(),
+          bestLocation.getLongitude());
 
-      ImageView icon = new ImageView(this);
-      icon.setImageResource(R.drawable.radar_icon);
-
-      ll.addView(icon);
-
-      TextView text = new TextView(this);
-      text.setText(" My Grid: " + myLocation.toMaidenhead());
-      text.setTextSize(28);
-
-      row.setPadding(5, 5, 5, 5);
-      row.setBackgroundColor(Color.argb(200, 51, 51, 51));
-
-      ll.addView(text);
-
-      row.addView(ll);
-      table.addView(row);
+      table.addView(this.getTableRow("My Grid: " + myLocation.toMaidenhead(),
+          "geo tools", Geo.class, R.drawable.radar_icon, null, this));
     }
     // table.addView(this.getTableRow("PSKreporter", "current solar conditions",
     // PSKReporter.class, R.drawable.radar_icon, null, this));
