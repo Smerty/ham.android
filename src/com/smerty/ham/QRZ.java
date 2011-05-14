@@ -146,7 +146,7 @@ public class QRZ extends Activity {
         profileTable.removeAllViewsInLayout();
 
         profile = qrzDb.getHamByCallsign(callsignSearchText.getText()
-            .toString());
+            .toString().replace(" ", ""));
 
       } catch (Exception e) {
         e.printStackTrace();
