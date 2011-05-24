@@ -20,6 +20,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
@@ -306,6 +307,22 @@ public class QRZ extends Activity {
         tr.addView(tv);
         tv.setText("Grid: " + result.getGrid());
         tv.setTextSize(24);
+        tv.setOnClickListener(new OnClickListener() {
+
+          public void onClick(View v) {
+            TextView tv = (TextView) v;
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            String substring = tv.getText().toString().substring(6);
+            Location loc = new Location(substring);
+            String uriString = "geo:"
+                + ((int) (loc.getLatitude().toDegrees() * 1000) / 1000.0) + ","
+                + ((int) (loc.getLongitude().toDegrees() * 1000) / 1000.0)
+                + "?z=15";
+            Log.d("QRZ", "grid click, launching intent using uri=" + uriString);
+            i.setData(Uri.parse(uriString));
+            that.startActivity(i);
+          }
+        });
         profileTable.addView(tr);
       } else {
         // gridText.setText("Grid: n/a");
