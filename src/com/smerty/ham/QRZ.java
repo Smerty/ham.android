@@ -322,17 +322,21 @@ public class QRZ extends Activity {
         tv2.setOnClickListener(new OnClickListener() {
 
           public void onClick(View v) {
-            TextView tv = (TextView) v;
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            String substring = tv.getText().toString();
-            Location loc = new Location(substring);
-            String uriString = "geo:"
-                + ((int) (loc.getLatitude().toDegrees() * 1000) / 1000.0) + ","
-                + ((int) (loc.getLongitude().toDegrees() * 1000) / 1000.0)
-                + "?z=15";
-            Log.d("QRZ", "grid click, launching intent using uri=" + uriString);
-            i.setData(Uri.parse(uriString));
-            that.startActivity(i);
+            if (v instanceof TextView) {
+              TextView tv = (TextView) v;
+              Intent i = new Intent(Intent.ACTION_VIEW);
+              String substring = tv.getText().toString();
+              Location loc = new Location(substring);
+              String uriString = "geo:"
+                  + ((int) (loc.getLatitude().toDegrees() * 1000) / 1000.0) + ","
+                  + ((int) (loc.getLongitude().toDegrees() * 1000) / 1000.0)
+                  + "?z=15";
+              Log.d("QRZ", "grid click, launching intent using uri=" + uriString);
+              i.setData(Uri.parse(uriString));
+              that.startActivity(i);
+            } else {
+              Log.e("QRZ", "v not instanceof TextView");
+            }
           }
         });
 
