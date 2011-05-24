@@ -16,17 +16,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.Html;
 import android.text.Html.ImageGetter;
+import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.UnderlineSpan;
 import android.text.util.Linkify;
 import android.util.Log;
 import android.view.View;
@@ -121,6 +125,8 @@ public class QRZ extends Activity {
 
   private class GetProfileTask extends AsyncTask<QRZ, Integer, QrzHamProfile> {
 
+    private int linkColor = Color.rgb(Integer.parseInt("66", 16),Integer.parseInt("77", 16),Integer.parseInt("FF", 16));
+
     QRZ that;
 
     protected QrzHamProfile doInBackground(QRZ... thats) {
@@ -146,7 +152,7 @@ public class QRZ extends Activity {
         profileTable.removeAllViewsInLayout();
 
         profile = qrzDb.getHamByCallsign(callsignSearchText.getText()
-            .toString());
+            .toString().replace(" ", ""));
 
       } catch (Exception e) {
         e.printStackTrace();
@@ -302,10 +308,41 @@ public class QRZ extends Activity {
 
       if (result.getGrid() != null) {
         TableRow tr = new TableRow(that);
+        LinearLayout ll = new LinearLayout(that);
+        ll.setOrientation(LinearLayout.HORIZONTAL);
         TextView tv = new TextView(that);
-        tr.addView(tv);
-        tv.setText("Grid: " + result.getGrid());
+        tv.setText("Grid: ");
         tv.setTextSize(24);
+        TextView tv2 = new TextView(that);
+        SpannableString gridSpan = new SpannableString(result.getGrid());
+        gridSpan.setSpan(new UnderlineSpan(), 0, gridSpan.length(), 0);
+        tv2.setText(gridSpan);
+        tv2.setTextSize(24);
+        tv2.setTextColor(linkColor);
+        tv2.setOnClickListener(new OnClickListener() {
+
+          public void onClick(View v) {
+            if (v instanceof TextView) {
+              TextView tv = (TextView) v;
+              Intent i = new Intent(Intent.ACTION_VIEW);
+              String substring = tv.getText().toString();
+              Location loc = new Location(substring);
+              String uriString = "geo:"
+                  + ((int) (loc.getLatitude().toDegrees() * 1000) / 1000.0) + ","
+                  + ((int) (loc.getLongitude().toDegrees() * 1000) / 1000.0)
+                  + "?z=15";
+              Log.d("QRZ", "grid click, launching intent using uri=" + uriString);
+              i.setData(Uri.parse(uriString));
+              that.startActivity(i);
+            } else {
+              Log.e("QRZ", "v not instanceof TextView");
+            }
+          }
+        });
+
+        ll.addView(tv);
+        ll.addView(tv2);
+        tr.addView(ll);
         profileTable.addView(tr);
       } else {
         // gridText.setText("Grid: n/a");

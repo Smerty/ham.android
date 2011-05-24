@@ -59,6 +59,10 @@ public class ham extends Activity {
       table.addView(this.getTableRow("My Grid: " + myLocation.toMaidenhead(),
           "geo tools", Geo.class, R.drawable.radar_icon, null, this));
     }
+    else {
+      table.addView(this.getTableRow("Geo",
+          "geo tools", Geo.class, R.drawable.radar_icon, null, this));
+    }
     // table.addView(this.getTableRow("PSKreporter", "current solar conditions",
     // PSKReporter.class, R.drawable.radar_icon, null, this));
     table.addView(this.getTableRow("Settings", "ham settings", Settings.class,
