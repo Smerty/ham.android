@@ -6,7 +6,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.location.Criteria;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -46,11 +45,9 @@ public class ham extends Activity {
         this));
 
     LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-    Criteria criteria = new Criteria();
-    criteria.setAccuracy(Criteria.ACCURACY_FINE);
 
     android.location.Location bestLocation = locationManager
-        .getLastKnownLocation(locationManager.getBestProvider(criteria, true));
+        .getLastKnownLocation(Geo.getBestProvider(locationManager));
 
     if (bestLocation != null) {
       Location myLocation = new Location(bestLocation.getLatitude(),

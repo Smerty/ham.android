@@ -19,7 +19,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.location.Criteria;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -351,12 +350,9 @@ public class QRZ extends Activity {
       if (result.getGrid() != null) {
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
 
         android.location.Location bestLocation = locationManager
-            .getLastKnownLocation(locationManager.getBestProvider(criteria,
-                true));
+            .getLastKnownLocation(Geo.getBestProvider(locationManager));
 
 
         if (bestLocation != null) {
