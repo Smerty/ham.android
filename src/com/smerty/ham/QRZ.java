@@ -94,6 +94,20 @@ public class QRZ extends Activity {
 
     final EditText callsignSearchText = (EditText) findViewById(R.id.EditText01);
 
+    Uri uri = getIntent().getData();
+    if (uri != null) {
+      // parse www.qrz.com/db/callsign
+      java.util.List<String> pathSegments = uri.getPathSegments();
+      Log.d("QRZ", "opening URL: " + uri);
+      if (uri.getHost().toLowerCase().contains("qrz.com") &&
+	  pathSegments.size() == 2 &&
+	  pathSegments.get(0).equals("db")) {
+	callsignSearchText.setText(pathSegments.get(1));
+	Log.d("startDownloading", "from Intent URI");
+        updatetask = new GetProfileTask().execute(QRZ.this);
+      }
+    }
+
     Button searchButton = (Button) findViewById(R.id.Button01);
 
     searchButton.setOnClickListener(new OnClickListener() {
