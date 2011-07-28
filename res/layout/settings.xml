@@ -21,7 +21,8 @@
   <TextView android:text="Password:  " android:id="@+id/TextProfileName" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 <EditText android:id="@+id/EditText02" android:password="true" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:singleLine="true" android:editable="true"></EditText>
 </LinearLayout>
-
+<TextView android:text="Location Based Services" android:id="@+id/TextLBSSettings" android:textSize="24sp" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+<CheckBox android:text="Enabled" android:id="@+id/LBSCheckbox" android:layout_width="fill_parent" android:layout_height="wrap_content"></CheckBox>
 <LinearLayout 
 	xmlns:android="http://schemas.android.com/apk/res/android"
   	android:layout_width="fill_parent"
