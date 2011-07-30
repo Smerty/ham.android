@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class Settings extends Activity {
@@ -22,9 +23,11 @@ public class Settings extends Activity {
     SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
     String qrzUser = settings.getString("qrzUser", null);
     String qrzPassword = settings.getString("qrzPassword", null);
+    boolean lbsEnabled = settings.getBoolean("lbsEnabled", true);
 
     EditText userET = (EditText) findViewById(R.id.EditText01);
     EditText passwordET = (EditText) findViewById(R.id.EditText02);
+    CheckBox lbsCheckbox = (CheckBox) findViewById(R.id.LBSCheckbox);
 
     if (qrzUser != null) {
       userET.setText(qrzUser);
@@ -32,21 +35,25 @@ public class Settings extends Activity {
     if (qrzPassword != null) {
       passwordET.setText(qrzPassword);
     }
+    lbsCheckbox.setChecked(lbsEnabled);
 
     Button saveButton = (Button) findViewById(R.id.Button01);
     Button cancelButton = (Button) findViewById(R.id.Button04);
     Button deleteButton = (Button) findViewById(R.id.Button03);
+
 
     saveButton.setOnClickListener(new OnClickListener() {
 
       public void onClick(View v) {
         EditText userET = (EditText) findViewById(R.id.EditText01);
         EditText passwordET = (EditText) findViewById(R.id.EditText02);
+        CheckBox lbsCheckbox = (CheckBox) findViewById(R.id.LBSCheckbox);
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("qrzUser", userET.getText().toString());
         editor.putString("qrzPassword", passwordET.getText().toString());
+        editor.putBoolean("lbsEnabled", lbsCheckbox.isChecked());
         editor.commit();
         Settings.this.finish();
       }
@@ -66,9 +73,11 @@ public class Settings extends Activity {
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("qrzUser", null);
         editor.putString("qrzPassword", null);
+        editor.putBoolean("lbsenabled", false);
         editor.commit();
         Settings.this.finish();
       }
     });
+
   }
 }

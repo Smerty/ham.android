@@ -5,6 +5,7 @@ import org.smerty.jham.Location;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.LocationManager;
@@ -30,7 +31,11 @@ public class ham extends Activity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+  }
 
+  @Override
+  protected void onResume() {
+    super.onResume();
     ScrollView sv = new ScrollView(this);
 
     TableLayout table = new TableLayout(this);
@@ -52,16 +57,21 @@ public class ham extends Activity {
     android.location.Location bestLocation = locationManager
         .getLastKnownLocation(locationManager.getBestProvider(criteria, true));
 
-    if (bestLocation != null) {
-      Location myLocation = new Location(bestLocation.getLatitude(),
-          bestLocation.getLongitude());
 
-      table.addView(this.getTableRow("My Grid: " + myLocation.toMaidenhead(),
-          "geo tools", Geo.class, R.drawable.radar_icon, null, this));
-    }
-    else {
-      table.addView(this.getTableRow("Geo",
-          "geo tools", Geo.class, R.drawable.radar_icon, null, this));
+    SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+    boolean lbsEnabled = settings.getBoolean("lbsEnabled", true);
+
+    if (lbsEnabled) {
+      if (bestLocation != null) {
+        Location myLocation = new Location(bestLocation.getLatitude(),
+            bestLocation.getLongitude());
+
+        table.addView(this.getTableRow("My Grid: " + myLocation.toMaidenhead(),
+            "geo tools", Geo.class, R.drawable.radar_icon, null, this));
+      } else {
+        table.addView(this.getTableRow("Geo", "geo tools", Geo.class,
+            R.drawable.radar_icon, null, this));
+      }
     }
     // table.addView(this.getTableRow("PSKreporter", "current solar conditions",
     // PSKReporter.class, R.drawable.radar_icon, null, this));
