@@ -60,9 +60,21 @@ public class Geo extends Activity implements LocationListener {
       if (true) {
         Location myLocation = new Location(bestLocation.getLatitude(),
             bestLocation.getLongitude());
-        table.addView(rowHelper("Grid: " + myLocation.toMaidenhead()));
+        table.addView(rowHelper("Grid: " + myLocation.toMaidenhead(),48));
       }
 
+
+      table.addView(rowHelper("Latitude: "
+          + ((bestLocation.getLatitude() * 100000000) / 100000000.0),24));
+      table.addView(rowHelper("Longitude: "
+          + ((bestLocation.getLongitude() * 100000000) / 100000000.0),24));
+
+
+
+      table.addView(rowHelper(""
+          + new Date(bestLocation.getTime()).toString(), 18));
+
+      /*
       table.addView(rowHelper("Provider: " + bestLocation.getProvider()));
 
       table.addView(rowHelper("Age: "
@@ -70,18 +82,14 @@ public class Geo extends Activity implements LocationListener {
           + " sec"));
       table.addView(rowHelper("Accuracy: " + bestLocation.getAccuracy()));
 
-      table.addView(rowHelper("Lat: "
-          + ((bestLocation.getLatitude() * 10000) / 10000.0)));
-      table.addView(rowHelper("Lon: "
-          + ((bestLocation.getLongitude() * 10000) / 10000.0)));
-
-      table.addView(rowHelper("Time: "
-          + new Date(bestLocation.getTime()).toString()));
 
       table.addView(rowHelper("Speed: " + bestLocation.getSpeed()));
       table.addView(rowHelper("Alt: " + bestLocation.getAltitude()));
       table.addView(rowHelper("Bearing" + bestLocation.getBearing()));
+      */
 
+    } else {
+      table.addView(rowHelper("Position Not Known."));
     }
 
     sv.addView(table);
@@ -96,11 +104,15 @@ public class Geo extends Activity implements LocationListener {
   }
 
   private TableRow rowHelper(String textStr) {
+    return rowHelper(textStr, 28);
+  }
+
+  private TableRow rowHelper(String textStr, int textSize) {
     TableRow row = new TableRow(this);
 
     TextView text = new TextView(this);
     text.setText(textStr);
-    text.setTextSize(28);
+    text.setTextSize(textSize);
 
     row.setPadding(5, 5, 5, 5);
     row.setBackgroundColor(Color.argb(200, 51, 51, 51));

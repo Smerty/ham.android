@@ -348,7 +348,10 @@ public class QRZ extends Activity {
         // gridText.setText("Grid: n/a");
       }
 
-      if (result.getGrid() != null) {
+      SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+      boolean lbsEnabled = settings.getBoolean("lbsEnabled", true);
+
+      if (result.getGrid() != null && lbsEnabled) {
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();

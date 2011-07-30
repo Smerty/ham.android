@@ -13,6 +13,14 @@
     <compileSource>1.6</compileSource>
   </properties>
 
+  <licenses>
+    <license>
+      <name>New BSD License</name>
+      <url>http://www.opensource.org/licenses/bsd-license</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
   <dependencies>
     <dependency>
       <groupId>com.google.android</groupId>
