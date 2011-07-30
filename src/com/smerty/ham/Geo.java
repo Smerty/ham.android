@@ -49,11 +49,7 @@ public class Geo extends Activity implements LocationListener {
 
     if (bestLocation == null) {
 
-      Criteria criteria = new Criteria();
-      criteria.setAccuracy(Criteria.ACCURACY_FINE);
-
-      bestLocation = locationManager.getLastKnownLocation(locationManager
-          .getBestProvider(criteria, true));
+      bestLocation = locationManager.getLastKnownLocation(getBestProvider(locationManager));
     }
 
     if (bestLocation != null) {
@@ -167,11 +163,18 @@ public class Geo extends Activity implements LocationListener {
       return;
     }
 
-    Criteria criteria = new Criteria();
-    // criteria.setAccuracy(Criteria.ACCURACY_COARSE); // Faster, no GPS fix.
-    criteria.setAccuracy(Criteria.ACCURACY_FINE);
     locationManager.requestLocationUpdates(
-        locationManager.getBestProvider(criteria, true), 2000, 0, this);
+        getBestProvider(locationManager), 2000, 0, this);
   }
 
+  public static String getBestProvider(LocationManager locationManager) {
+    Criteria criteria = new Criteria();
+    criteria.setAccuracy(Criteria.ACCURACY_FINE);
+
+    String bestProvider = locationManager.getBestProvider(criteria, true);
+    if (bestProvider != null)
+      return bestProvider;
+    else
+      return LocationManager.GPS_PROVIDER;
+  }
 }

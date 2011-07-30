@@ -19,7 +19,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.location.Criteria;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -94,6 +93,20 @@ public class QRZ extends Activity {
     resultsLL.setVisibility(View.INVISIBLE);
 
     final EditText callsignSearchText = (EditText) findViewById(R.id.EditText01);
+
+    Uri uri = getIntent().getData();
+    if (uri != null) {
+      // parse www.qrz.com/db/callsign
+      java.util.List<String> pathSegments = uri.getPathSegments();
+      Log.d("QRZ", "opening URL: " + uri);
+      if (uri.getHost().toLowerCase().contains("qrz.com") &&
+	  pathSegments.size() == 2 &&
+	  pathSegments.get(0).equals("db")) {
+	callsignSearchText.setText(pathSegments.get(1));
+	Log.d("startDownloading", "from Intent URI");
+        updatetask = new GetProfileTask().execute(QRZ.this);
+      }
+    }
 
     Button searchButton = (Button) findViewById(R.id.Button01);
 
@@ -354,12 +367,9 @@ public class QRZ extends Activity {
       if (result.getGrid() != null && lbsEnabled) {
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        Criteria criteria = new Criteria();
-        criteria.setAccuracy(Criteria.ACCURACY_FINE);
 
         android.location.Location bestLocation = locationManager
-            .getLastKnownLocation(locationManager.getBestProvider(criteria,
-                true));
+            .getLastKnownLocation(Geo.getBestProvider(locationManager));
 
 
         if (bestLocation != null) {
