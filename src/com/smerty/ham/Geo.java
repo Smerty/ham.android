@@ -5,10 +5,12 @@ package com.smerty.ham;
 
 import java.util.Date;
 
+import org.smerty.android.util.IntentUtils;
 import org.smerty.jham.Location;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.location.Criteria;
 import android.location.LocationListener;
@@ -35,7 +37,11 @@ public class Geo extends Activity implements LocationListener {
   protected void onCreate(Bundle savedInstanceState) {
     // TODO Auto-generated method stub
     super.onCreate(savedInstanceState);
+  }
 
+  @Override
+  protected void onResume() {
+    super.onResume();
     ScrollView sv = new ScrollView(this);
 
     TableLayout table = new TableLayout(this);
@@ -47,9 +53,17 @@ public class Geo extends Activity implements LocationListener {
       locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
     }
 
+    if (!isProviderAvailable(locationManager)) {
+      if (IntentUtils.isIntentAvailable(this, android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS)) {
+        Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(intent);
+        // code will continue, even if settings screen is brought up.
+      }
+    }
+
     if (bestLocation == null) {
 
-      bestLocation = locationManager.getLastKnownLocation(getBestProvider(locationManager));
+      bestLocation = locationManager.getLastKnownLocation(getBestProviderWithGPSFallback(locationManager));
     }
 
     if (bestLocation != null) {
@@ -91,12 +105,6 @@ public class Geo extends Activity implements LocationListener {
     sv.addView(table);
 
     setContentView(sv);
-  }
-
-  @Override
-  protected void onResume() {
-    startLocating();
-    super.onResume();
   }
 
   private TableRow rowHelper(String textStr) {
@@ -164,17 +172,33 @@ public class Geo extends Activity implements LocationListener {
     }
 
     locationManager.requestLocationUpdates(
-        getBestProvider(locationManager), 2000, 0, this);
+        getBestProviderWithGPSFallback(locationManager), 2000, 0, this);
   }
 
-  public static String getBestProvider(LocationManager locationManager) {
+  public static boolean isProviderAvailable(LocationManager locationManager) {
+    String bestProvider = getBestProviderOrNull(locationManager);
+    // Probably would be nice to migrate to return StringUtils.isBlank(bestProvider)
+    if (bestProvider != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public static String getBestProviderWithGPSFallback(LocationManager locationManager) {
+    String bestProvider = getBestProviderOrNull(locationManager);
+    if (bestProvider != null) {
+      return bestProvider;
+    }
+    else {
+      return LocationManager.GPS_PROVIDER;
+    }
+  }
+
+  public static String getBestProviderOrNull(LocationManager locationManager) {
     Criteria criteria = new Criteria();
     criteria.setAccuracy(Criteria.ACCURACY_FINE);
-
     String bestProvider = locationManager.getBestProvider(criteria, true);
-    if (bestProvider != null)
-      return bestProvider;
-    else
-      return LocationManager.GPS_PROVIDER;
+    return bestProvider;
   }
 }
