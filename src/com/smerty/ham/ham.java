@@ -52,9 +52,7 @@ public class ham extends Activity {
     LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
     android.location.Location bestLocation = locationManager
-        .getLastKnownLocation(Geo.getBestProvider(locationManager));
-
-
+        .getLastKnownLocation(Geo.getBestProviderWithGPSFallback(locationManager));
     SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
     boolean lbsEnabled = settings.getBoolean("lbsEnabled", true);
 
