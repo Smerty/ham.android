@@ -67,12 +67,9 @@ public class Geo extends Activity implements LocationListener {
     }
 
     if (bestLocation != null) {
-      if (true) {
-        Location myLocation = new Location(bestLocation.getLatitude(),
-            bestLocation.getLongitude());
-        table.addView(rowHelper("Grid: " + myLocation.toMaidenhead(),48));
-      }
-
+      Location myLocation = new Location(bestLocation.getLatitude(),
+          bestLocation.getLongitude());
+      table.addView(rowHelper("Grid: " + myLocation.toMaidenhead(), 48));
 
       table.addView(rowHelper("Latitude: "
           + ((bestLocation.getLatitude() * 100000000) / 100000000.0),24));
@@ -105,6 +102,9 @@ public class Geo extends Activity implements LocationListener {
     sv.addView(table);
 
     setContentView(sv);
+
+    // start up the gps
+    startLocating();
   }
 
   private TableRow rowHelper(String textStr) {
@@ -127,7 +127,7 @@ public class Geo extends Activity implements LocationListener {
 
   public void onLocationChanged(android.location.Location location) {
     bestLocation = location;
-    this.onCreate(null);
+    this.onResume();
   }
 
   @Override
