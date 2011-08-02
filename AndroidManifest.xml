@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.smerty.ham" android:versionCode="12" android:versionName="1.5.1">
+  package="com.smerty.ham" android:versionCode="13" android:versionName="1.5.2">
   <application android:icon="@drawable/icon" android:label="@string/app_name"
     android:debuggable="true">
     <activity android:name=".ham" android:label="@string/app_name">
