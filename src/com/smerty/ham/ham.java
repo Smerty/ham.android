@@ -42,10 +42,10 @@ public class ham extends Activity {
     // table.setStretchAllColumns(true);
     table.setShrinkAllColumns(true);
 
-    table.addView(this.getTableRow("Solar Conditions",
+    table.addView(this.getTableRow(getString(R.string.ham_main_solar),
         "current solar conditions", Solar.class, R.drawable.solar_icon, null,
         this));
-    table.addView(this.getTableRow("Callsign Lookup",
+    table.addView(this.getTableRow(getString(R.string.ham_main_callsign),
         "current solar conditions", QRZ.class, R.drawable.search_icon, null,
         this));
 
@@ -61,23 +61,23 @@ public class ham extends Activity {
         Location myLocation = new Location(bestLocation.getLatitude(),
             bestLocation.getLongitude());
 
-        table.addView(this.getTableRow("My Grid: " + myLocation.toMaidenhead(),
+        table.addView(this.getTableRow(getString(R.string.ham_main_mygrid) + ": " + myLocation.toMaidenhead(),
             "geo tools", Geo.class, R.drawable.radar_icon, null, this));
       } else {
-        table.addView(this.getTableRow("Geo", "geo tools", Geo.class,
+        table.addView(this.getTableRow(getString(R.string.ham_main_geo), "geo tools", Geo.class,
             R.drawable.radar_icon, null, this));
       }
     }
     // table.addView(this.getTableRow("PSKreporter", "current solar conditions",
     // PSKReporter.class, R.drawable.radar_icon, null, this));
-    table.addView(this.getTableRow("Settings", "ham settings", Settings.class,
+    table.addView(this.getTableRow(getString(R.string.ham_main_settings), "ham settings", Settings.class,
         R.drawable.gear_icon, null, this));
-    table.addView(this.getTableRow("Email Developer",
+    table.addView(this.getTableRow(getString(R.string.ham_main_email),
         "current solar conditions", null, R.drawable.mail_icon,
         "mailto:ham.android@smerty.org?subject=ham for android", this));
     // table.addView(this.getTableRow("Credits", "current solar conditions",
     // null, R.drawable.gear_icon, "http://smerty.org", this));
-    table.addView(this.getTableRow("Exit", "current solar conditions", null,
+    table.addView(this.getTableRow(getString(R.string.ham_main_exit), "current solar conditions", null,
         R.drawable.house_icon, null, this));
 
     sv.addView(table);
@@ -142,12 +142,12 @@ public class ham extends Activity {
 
   /* Creates the menu items */
   public boolean onCreateOptionsMenu(Menu menu) {
-    menu.add(0, MENU_ABOUT, 0, "About");
+    menu.add(0, MENU_ABOUT, 0, getString(R.string.ham_main_about));
     // menu.add(0, MENU_REFRESH, 0, "Refresh");
     // menu.add(0, MENU_QRZ, 0, "QRZ");
     // menu.add(0, MENU_SOLAR, 0, "Solar");
     // menu.add(0, MENU_PSKREPORTER, 0, "PSKReporter");
-    menu.add(0, MENU_QUIT, 0, "Quit");
+    menu.add(0, MENU_QUIT, 0, getString(R.string.ham_main_exit));
     return true;
   }
 
@@ -156,7 +156,7 @@ public class ham extends Activity {
     switch (item.getItemId()) {
     case MENU_ABOUT:
       Toast.makeText(getBaseContext(),
-          "Developed by Smerty Software (Paul K6SH)", Toast.LENGTH_LONG).show();
+          getString(R.string.ham_main_developer), Toast.LENGTH_LONG).show();
       return true;
     case MENU_REFRESH:
       this.onCreate(null);
