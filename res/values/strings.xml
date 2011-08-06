@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">Ham</string>
+  
     <string name="stdstr"><u>Solar Terrestrial Data</u></string>
     <string name="cscstr"><u>Calculated Solar Conditions</u></string>
     <string name="vhfcondstr"><u>VHF Conditions</u></string>
 	<string name="otherstr"><u>Other</u></string>
     <string name="solarsource"><i>N0NBH: http://www.hamqsl.com/solar.html</i></string>
+    
+    <!-- Main Activity -->
+    <string name="ham.main.solar">Solar Conditions</string>
+    <string name="ham.main.callsign">Callsign Lookup</string>
+    <string name="ham.main.mygrid">My Grid</string>
+    <string name="ham.main.geo">Geo</string>
+    <string name="ham.main.settings">Settings</string>
+    <string name="ham.main.email">Email Developer</string>
+    <string name="ham.main.exit">Exit</string>
+    <string name="ham.main.about">About</string>
+    <string name="ham.main.developer">Developed by Smerty Software (Paul K6SH)</string>
+    
+    <!-- Geo Activity -->
+    <string name="ham.geo.grid">Grid</string>
+    <string name="ham.geo.latitude">Latitude</string>
+    <string name="ham.geo.longitude">Longitude</string>
+    <string name="ham.geo.unknown">Current Position Unknown.</string>
 </resources>
