@@ -164,8 +164,11 @@ public class QRZ extends Activity {
         TableLayout profileTable = (TableLayout) findViewById(R.id.ProfileTable);
         profileTable.removeAllViewsInLayout();
 
-        profile = qrzDb.getHamByCallsign(callsignSearchText.getText()
-            .toString().replace(" ", ""));
+        String callsign = callsignSearchText.getText().toString().trim().toLowerCase();
+        if (callsign.contains(" ")) {
+          callsign = QRZ.extractCharsFromPhonetic(callsign);
+        }
+        profile = qrzDb.getHamByCallsign(callsign.replace(" ", ""));
 
       } catch (Exception e) {
         e.printStackTrace();
@@ -475,5 +478,26 @@ public class QRZ extends Activity {
       resultsLL.setVisibility(View.VISIBLE);
 
     }
+  }
+
+  public static String extractCharsFromPhonetic(String input) {
+    return input.replaceAll("x ray", "x").replaceAll("alpha", "a")
+        .replaceAll("bravo", "b").replaceAll("charlie", "c")
+        .replaceAll("delta", "d").replaceAll("echo", "e")
+        .replaceAll("foxtrot", "f").replaceAll("golf", "g")
+        .replaceAll("hotel", "h").replaceAll("india", "i")
+        .replaceAll("juliet", "j").replaceAll("kilo", "k")
+        .replaceAll("lima", "l").replaceAll("mike", "m")
+        .replaceAll("november", "n").replaceAll("oscar", "o")
+        .replaceAll("papa", "p").replaceAll("quebec", "q")
+        .replaceAll("romeo", "r").replaceAll("sierra", "s")
+        .replaceAll("tango", "t").replaceAll("uniform", "u")
+        .replaceAll("victor", "v").replaceAll("whiskey", "w")
+        .replaceAll("yankee", "y").replaceAll("zulu", "z")
+        .replaceAll("one", "1").replaceAll("two", "2").replaceAll("three", "3")
+        .replaceAll("four", "4").replaceAll("five", "5").replaceAll("six", "6")
+        .replaceAll("seven", "7").replaceAll("eight", "8")
+        .replaceAll("niner", "9").replaceAll("nine", "9")
+        .replaceAll("zero", "0").replaceAll("x-ray", "x");
   }
 }
