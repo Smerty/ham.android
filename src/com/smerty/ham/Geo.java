@@ -3,6 +3,8 @@
  */
 package com.smerty.ham;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 import org.smerty.android.util.IntentUtils;
@@ -32,6 +34,11 @@ public class Geo extends Activity implements LocationListener {
   private LocationManager locationManager;
   private android.location.Location bestLocation;
   private boolean locating = false;
+  private DecimalFormat decimalFormat = new DecimalFormat("#.####");
+
+  public Geo() {
+    this.decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
+  }
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +78,17 @@ public class Geo extends Activity implements LocationListener {
           bestLocation.getLongitude());
       table.addView(rowHelper(getString(R.string.ham_geo_grid) + ": " + myLocation.toMaidenhead(), 48));
 
+      int accuracy = (int) (bestLocation.getAccuracy() * 3.2808399);
+
+      if (bestLocation.getProvider().equalsIgnoreCase("gps")) {
+        table.addView(rowHelper("GPS Accuracy: " + accuracy + "'",24));
+      } else if (bestLocation.getProvider().equalsIgnoreCase("network")) {
+        table.addView(rowHelper("Non-GPS Accuracy: " + accuracy + "'",24));
+      }
       table.addView(rowHelper(getString(R.string.ham_geo_latitude) + ": "
-          + ((bestLocation.getLatitude() * 100000000) / 100000000.0),24));
+          + (this.decimalFormat.format(bestLocation.getLatitude())),24));
       table.addView(rowHelper(getString(R.string.ham_geo_longitude) + ": "
-          + ((bestLocation.getLongitude() * 100000000) / 100000000.0),24));
-
-
+          + (this.decimalFormat.format(bestLocation.getLongitude())),24));
 
       table.addView(rowHelper(""
           + new Date(bestLocation.getTime()).toString(), 18));
@@ -87,11 +99,8 @@ public class Geo extends Activity implements LocationListener {
       table.addView(rowHelper("Age: "
           + ((System.currentTimeMillis() - bestLocation.getTime()) / 1000.0)
           + " sec"));
-      table.addView(rowHelper("Accuracy: " + bestLocation.getAccuracy()));
-
 
       table.addView(rowHelper("Speed: " + bestLocation.getSpeed()));
-      table.addView(rowHelper("Alt: " + bestLocation.getAltitude()));
       table.addView(rowHelper("Bearing" + bestLocation.getBearing()));
       */
 
