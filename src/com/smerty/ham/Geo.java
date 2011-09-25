@@ -69,11 +69,11 @@ public class Geo extends Activity implements LocationListener {
     if (bestLocation != null) {
       Location myLocation = new Location(bestLocation.getLatitude(),
           bestLocation.getLongitude());
-      table.addView(rowHelper("Grid: " + myLocation.toMaidenhead(), 48));
+      table.addView(rowHelper(getString(R.string.ham_geo_grid) + ": " + myLocation.toMaidenhead(), 48));
 
-      table.addView(rowHelper("Latitude: "
+      table.addView(rowHelper(getString(R.string.ham_geo_latitude) + ": "
           + ((bestLocation.getLatitude() * 100000000) / 100000000.0),24));
-      table.addView(rowHelper("Longitude: "
+      table.addView(rowHelper(getString(R.string.ham_geo_longitude) + ": "
           + ((bestLocation.getLongitude() * 100000000) / 100000000.0),24));
 
 
@@ -96,7 +96,7 @@ public class Geo extends Activity implements LocationListener {
       */
 
     } else {
-      table.addView(rowHelper("Position Not Known."));
+      table.addView(rowHelper(getString(R.string.ham_geo_unknown)));
     }
 
     sv.addView(table);
