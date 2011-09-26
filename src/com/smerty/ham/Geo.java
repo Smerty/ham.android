@@ -37,7 +37,12 @@ public class Geo extends Activity implements LocationListener {
   private DecimalFormat decimalFormat = new DecimalFormat("#.####");
 
   public Geo() {
-    this.decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
+    // this causes an issue on some devices, odd...
+    try {
+      this.decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
+    } catch (Exception e) {
+      Log.w("Geo", "Exception: " + e.getMessage());
+    }
   }
 
   @Override
