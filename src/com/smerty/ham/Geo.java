@@ -40,7 +40,7 @@ public class Geo extends Activity implements LocationListener {
     // this causes an issue on some devices, odd...
     try {
       this.decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
-    } catch (Exception e) {
+    } catch (java.lang.NoSuchMethodError e) {
       Log.w("Geo", "Exception: " + e.getMessage());
     }
   }
