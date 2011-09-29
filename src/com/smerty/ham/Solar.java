@@ -323,28 +323,32 @@ public class Solar extends Activity {
       row.addView(text);
       table.addView(row);
 
-      for (Phenomenon pheno : conds.getCalculatedvhfconditions()
-          .getPhenomenon()) {
-        row = new TableRow(this);
-        text = new TextView(this);
-        if (pheno.getName().equals("vhf-aurora")) {
-          text.setText("Aurora: \t" + pheno.getValue());
-        } else if (pheno.getName().equals("E-Skip")) {
-          if (pheno.getLocation().equals("north_america")) {
-            text.setText("2m Es N. America: \t" + pheno.getValue());
-          } else if (pheno.getLocation().equals("europe")) {
-            text.setText("2m Es Europe: \t" + pheno.getValue());
-          } else if (pheno.getLocation().equals("europe_6m")) {
-            text.setText("6m Es Europe: \t" + pheno.getValue());
-          } else if (pheno.getLocation().equals("europe_4m")) {
-            text.setText("4m Es Europe: \t" + pheno.getValue());
+      if (conds.getCalculatedvhfconditions() != null) {
+        for (Phenomenon pheno : conds.getCalculatedvhfconditions()
+            .getPhenomenon()) {
+          row = new TableRow(this);
+          text = new TextView(this);
+          if (pheno.getName().equals("vhf-aurora")) {
+            text.setText("Aurora: \t" + pheno.getValue());
+          } else if (pheno.getName().equals("E-Skip")) {
+            if (pheno.getLocation().equals("north_america")) {
+              text.setText("2m Es N. America: \t" + pheno.getValue());
+            } else if (pheno.getLocation().equals("europe")) {
+              text.setText("2m Es Europe: \t" + pheno.getValue());
+            } else if (pheno.getLocation().equals("europe_6m")) {
+              text.setText("6m Es Europe: \t" + pheno.getValue());
+            } else if (pheno.getLocation().equals("europe_4m")) {
+              text.setText("4m Es Europe: \t" + pheno.getValue());
+            }
           }
+          text.setTextSize(18);
+          row.setPadding(3, 3, 3, 3);
+          row.setBackgroundColor(Color.argb(200, 51, 51, 51));
+          row.addView(text);
+          table.addView(row);
         }
-        text.setTextSize(18);
-        row.setPadding(3, 3, 3, 3);
-        row.setBackgroundColor(Color.argb(200, 51, 51, 51));
-        row.addView(text);
-        table.addView(row);
+      } else {
+        Log.w("allTogether", "calculatedvhfconditions was null");
       }
 
       row = new TableRow(this);
