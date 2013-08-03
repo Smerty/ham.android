@@ -1,21 +1,5 @@
 package com.smerty.ham;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.params.HttpProtocolParams;
-import org.smerty.ham.solar.Calculatedconditions;
-import org.smerty.ham.solar.Phenomenon;
-import org.smerty.ham.solar.Solardata;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
@@ -23,8 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
-import android.os.AsyncTask.Status;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
@@ -35,16 +17,19 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
+import org.smerty.ham.solar.Calculatedconditions;
+import org.smerty.ham.solar.Phenomenon;
+import org.smerty.ham.solar.Solardata;
 
 public class Solar extends Activity {
 
   ScrollView sv;
   TableLayout table;
 
-  Solardata conds;
-
-  private AsyncTask<Solar, Integer, Integer> updatetask;
   public ProgressDialog progressDialog;
 
   /** Called when the activity is first created. */
@@ -82,64 +67,40 @@ public class Solar extends Activity {
 
     sv.addView(table);
 
-    if (this.updatetask == null) {
-      Log.d("startDownloading", "task was null, calling execute");
-      this.updatetask = new UpdateFeedTask().execute(this);
-    } else {
-      Status s = this.updatetask.getStatus();
-      if (s == Status.FINISHED) {
-        Log.d("updatetask",
-            "task wasn't null, status finished, calling execute");
-        this.updatetask = new UpdateFeedTask().execute(this);
+
+      String agent = "ham ";
+
+      try {
+          ComponentName compName = new ComponentName(this, Solar.class);
+          PackageInfo pkgInfo = this.getPackageManager().getPackageInfo(
+                  compName.getPackageName(), 0);
+          agent += "(v" + pkgInfo.versionName + "-" + pkgInfo.versionCode + ") ";
+      } catch (android.content.pm.PackageManager.NameNotFoundException e) {
+          agent += "(version unknown) ";
       }
-    }
+
+      agent += "for android";
+
+      Ion.with(this.getApplicationContext(), "http://api.smerty.org/ham/solardata.php?format=json&agent=" + agent)
+              .progressDialog(this.progressDialog)
+              .as(new TypeToken<Solardata>() {
+              })
+              .setCallback(new FutureCallback<Solardata>() {
+                  @Override
+                  public void onCompleted(Exception e, Solardata result) {
+                      if (e == null) {
+                          allTogether(result);
+                      } else {
+                          e.printStackTrace();
+                          Toast.makeText(getBaseContext(), "Network Failure...", Toast.LENGTH_SHORT).show();
+                      }
+                  }
+              });
 
     setContentView(sv);
   }
 
-  private class UpdateFeedTask extends AsyncTask<Solar, Integer, Integer> {
-
-    Solar that;
-
-    protected Integer doInBackground(Solar... thats) {
-
-      if (that == null) {
-        this.that = thats[0];
-      }
-
-      publishProgress(0);
-
-      try {
-        that.conds = that.getSolar();
-      } catch (Exception e) {
-        that.conds = null;
-      }
-
-      publishProgress(100);
-
-      return 0;
-    }
-
-    protected void onProgressUpdate(Integer... progress) {
-      Log.d("onProgressUpdate", progress[0].toString());
-      if (progress[0] == 0) {
-        that.progressDialog = ProgressDialog.show(that, "Ham",
-            "Downloading Solar Data", true, false);
-      }
-      if (progress[0] == 100) {
-        that.progressDialog.dismiss();
-      }
-
-    }
-
-    protected void onPostExecute(Integer result) {
-      // Log.d("onPostExecute", that.getApplicationInfo().packageName);
-      that.allTogether();
-
-    }
-  }
-
-  public void allTogether() {
+  public void allTogether(Solardata conds) {
 
     TableRow row = new TableRow(this);
     TextView text = new TextView(this);
@@ -437,56 +398,4 @@ public class Solar extends Activity {
     return Color.argb(200, 51, 51, 51);
   }
 
-  public Solardata getSolar() {
-
-    Solardata retval = null;
-
-    HttpParams params = new BasicHttpParams();
-    HttpProtocolParams.setVersion(params, HttpVersion.HTTP_1_1);
-    HttpProtocolParams.setContentCharset(params, "UTF-8");
-    HttpProtocolParams.setUseExpectContinue(params, true);
-    HttpProtocolParams.setHttpElementCharset(params, "UTF-8");
-
-    String agent = "ham ";
-
-    try {
-      ComponentName compName = new ComponentName(this, Solar.class);
-      PackageInfo pkgInfo = this.getPackageManager().getPackageInfo(
-          compName.getPackageName(), 0);
-      agent += "(v" + pkgInfo.versionName + "-" + pkgInfo.versionCode + ") ";
-    } catch (android.content.pm.PackageManager.NameNotFoundException e) {
-      agent += "(version unknown) ";
-    }
-
-    agent += "for android";
-
-    HttpProtocolParams.setUserAgent(params, agent);
-
-    DefaultHttpClient client = new DefaultHttpClient(params);
-
-    InputStream data = null;
-
-    try {
-      HttpGet method = new HttpGet(
-          "http://api.smerty.org/ham/solardata.php?format=json");
-      HttpResponse res = client.execute(method);
-      data = res.getEntity().getContent();
-    } catch (IOException e) {
-      e.printStackTrace();
-      Toast
-          .makeText(getBaseContext(), "Network Failure...", Toast.LENGTH_SHORT)
-          .show();
-      return null;
-    }
-
-    try {
-      Gson gson = new Gson();
-      Reader r = new InputStreamReader(data);
-      retval = gson.fromJson(r, Solardata.class);
-    } catch (Exception ex) {
-      ex.printStackTrace();
-    }
-
-    return retval;
-  }
 }
